@@ -1,12 +1,11 @@
 # Shift The Gift!
 **(PROTOTYPE)**
 
-School project
-idea was to create an x-mas game about placing machines that move the gift.
+School project. Idea: x-mas game about placing machines that move a gift to santa's bag.
 
-`
-npm run dev
 
-`
+run ```npm run dev```
+
+in terminal to start project (node required)
 
 Libraries used: Matter-js, Vite, Svelte
