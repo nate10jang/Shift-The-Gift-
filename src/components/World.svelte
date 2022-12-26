@@ -16,7 +16,7 @@
 		Events,
 	} = Matter;
 
-	const engine = Engine.create();
+	export const engine = Engine.create();
 	let canvasContainer: HTMLDivElement;
 	let canvas: HTMLCanvasElement;
 	let render;
@@ -154,6 +154,9 @@
 	});
 </script>
 
-<div bind:this={canvasContainer} class="max-w-[1400px] max-h-[1200px] w-full h-full">
+<div
+	bind:this={canvasContainer}
+	class="max-w-[1400px] max-h-[1200px] w-full h-full"
+>
 	<canvas bind:this={canvas} />
 </div>
