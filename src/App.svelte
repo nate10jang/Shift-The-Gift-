@@ -1,11 +1,13 @@
 <script>
-	import MachineBar from "./components/MachinesBar/index.svelte";
+	import ComponentBar from "./components/ComponentBar/index.svelte";
 	import World from "./components/World.svelte";
+	
+	let engine;
 </script>
 
 <main>
 	<div class="flex flex-row h-screen">
-		<World />
-		<MachineBar />
+		<World bind:engine={engine}/>
+		<ComponentBar engine={engine}/>
 	</div>
 </main>
