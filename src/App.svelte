@@ -1,5 +1,5 @@
 <script>
-	import ComponentBar from "./components/ComponentBar/index.svelte";
+	import ComponentBar from "./components/ComponentBar/ComponentBar.svelte";
 	import World from "./components/World.svelte";
 	
 	let engine;
