@@ -1,5 +1,5 @@
 <script>
-	import ComponentBar from "./components/ComponentBar/ComponentBar.svelte";
+	import Sidebar from "./components/sidebar/Sidebar.svelte";
 	import World from "./components/World.svelte";
 	
 	let engine;
@@ -8,6 +8,6 @@
 <main>
 	<div class="flex flex-row h-screen">
 		<World bind:engine={engine}/>
-		<ComponentBar engine={engine}/>
+		<Sidebar engine={engine}/>
 	</div>
 </main>
