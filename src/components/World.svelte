@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Matter from "matter-js";
-	import presentImage from "../assets/present.png";
 
 	const {
 		Engine,
@@ -26,18 +25,9 @@
 	let held;
 
 	const boxA = Bodies.rectangle(1300, 400, 80, 80, { isStatic: true });
-	const boxB = Bodies.rectangle(100, 50, 80, 80, {
-		render: {
-			sprite: {
-				texture: presentImage,
-				xScale: 0.14,
-				yScale: 0.13,
-			},
-		},
-	});
 	const ground = Bodies.rectangle(395, 505, 791, 10, { isStatic: true });
 
-	Composite.add(engine.world, [boxA, boxB, ground]);
+	Composite.add(engine.world, [boxA, ground]);
 
 	const runner = Runner.create();
 	Runner.run(runner, engine);
