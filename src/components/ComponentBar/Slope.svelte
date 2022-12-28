@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Matter from "matter-js";
+	import Button from "./Button.svelte";
 
 	const {
 		Engine,
@@ -23,4 +24,4 @@
 	}
 </script>
 
-<button on:click={place}>Slope</button>
+<Button on:click={place} name="Slope"></Button>
