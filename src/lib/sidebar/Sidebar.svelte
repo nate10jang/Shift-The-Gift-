@@ -1,6 +1,6 @@
 <script lang="ts">
     import ComponentBar from "./componentbar/ComponentBar.svelte";
-    import StartButton from "./StartButton.svelte";
+    import GameMenu from "./game_menu/GameMenu.svelte";
 
     export let engine;
 </script>
@@ -9,6 +9,6 @@
     <div class="flex w-full h-[40px] justify-center items-center">
         <p class="text-[20px]">Game</p>
     </div>
-    <StartButton {engine} />
+    <GameMenu {engine} />
     <ComponentBar {engine} />
 </div>
