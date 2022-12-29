@@ -1,6 +1,6 @@
 <script>
-	import Sidebar from "./components/sidebar/Sidebar.svelte";
-	import World from "./components/World.svelte";
+	import Sidebar from "./lib/sidebar/Sidebar.svelte";
+	import World from "./lib/World.svelte";
 	
 	let engine;
 </script>

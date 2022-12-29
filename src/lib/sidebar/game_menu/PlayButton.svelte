@@ -1,6 +1,6 @@
 <script lang="ts">
     import Matter from "matter-js";
-    import presentImage from "../../assets/present.png";
+    import presentImage from "../../../assets/present.png";
 
 	const {
 		Engine,
@@ -16,15 +16,8 @@
 	} = Matter;
 
     export let engine
-    let started: boolean = false;
-    let text: HTMLParagraphElement;
-    let buttonColor: string = "bg-green-400";
 
     function startGame() {
-        started = true;
-        text.innerText = "Restart";
-        buttonColor = "bg-orange-400"
-
 	    const present = Bodies.rectangle(100, 50, 80, 80, {
 		    render: {
 			    sprite: {
@@ -39,7 +32,6 @@
     }
 </script>
 
-<button on:click={startGame}
-class="flex justify-center items-center h-[50px] {buttonColor}">
-    <p class="text-[20px]" bind:this={text}>Start</p>
+<button on:click={startGame} class="bg-green-400 w-1/2">
+    <p class="text-[20px]">Start</p>
 </button>

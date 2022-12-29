@@ -24,11 +24,6 @@
 	let draggedPoint = Vector.create(0, 0);
 	let held;
 
-	const boxA = Bodies.rectangle(1300, 400, 80, 80, { isStatic: true });
-	const ground = Bodies.rectangle(395, 505, 791, 10, { isStatic: true });
-
-	Composite.add(engine.world, [boxA, ground]);
-
 	const runner = Runner.create();
 	Runner.run(runner, engine);
 
