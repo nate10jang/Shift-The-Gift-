@@ -6,7 +6,7 @@
 	export let engine;
 </script>
 
-<div class="h-[50px]">
-	<EditButton {engine} />
+<div class="h-[50px] flex-row">
 	<StartButton {engine} />
+	<EditButton {engine} />
 </div>

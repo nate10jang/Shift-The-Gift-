@@ -16,8 +16,12 @@
 	} = Matter;
 
     export let engine
+	
+	let started = false;
 
     function startGame() {
+		started = true;
+
 	    const present = Bodies.rectangle(100, 50, 80, 80, {
 		    render: {
 			    sprite: {
@@ -33,5 +37,7 @@
 </script>
 
 <button on:click={startGame} class="bg-green-400 w-1/2">
-    <p class="text-[20px]">Start</p>
+    <p class="text-[20px]">
+		{#if !started}Play{:else}Replay{/if}
+	</p>
 </button>
