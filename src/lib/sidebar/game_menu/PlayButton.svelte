@@ -1,6 +1,5 @@
 <script lang="ts">
     import Matter from "matter-js";
-    import presentImage from "../../../assets/present.png";
 
 	const {
 		Engine,
@@ -13,6 +12,7 @@
 		Vector,
 		Bounds,
 		Events,
+		Body,
 	} = Matter;
 
     export let engine
@@ -22,17 +22,9 @@
     function startGame() {
 		started = true;
 
-	    const present = Bodies.rectangle(100, 50, 80, 80, {
-		    render: {
-			    sprite: {
-				    texture: presentImage,
-				    xScale: 0.14,
-	    			yScale: 0.13,
-	    		},
-    		},
-	    });
-
-        Composite.add(engine.world, present)
+		for (let i = 0; i < Composite.allBodies(engine.world).length; i++) {
+			Body.setStatic(Composite.allBodies(engine.world)[i], false);
+		}
     }
 </script>
 
