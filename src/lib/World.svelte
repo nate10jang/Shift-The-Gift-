@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import Matter from "matter-js";
     import presentImage from "../assets/present.png";
+    import ComponentBar from "./sidebar/componentbar/ComponentBar.svelte";
 
 	const {
 		Engine,
@@ -16,7 +17,7 @@
 		Events,
 	} = Matter;
 
-	export const engine = Engine.create();
+	const engine = Engine.create();
 	let canvasContainer: HTMLDivElement;
 	let canvas: HTMLCanvasElement;
 	let render;
@@ -29,6 +30,7 @@
 	Runner.run(runner, engine);
 
 	const ground = Bodies.rectangle(400, 655, 1400, 10, { isStatic: true });
+	export const components = Composite.create();
 	const present = Bodies.rectangle(100, 50, 80, 80, {
 		render: {
 			sprite: {
@@ -37,10 +39,12 @@
 				yScale: 0.13,
 			},
 		},
-		isStatic: true
+		isStatic: true,
+		label: "present",
 	});
 
-	Composite.add(engine.world, [ground, present]);
+	Composite.add(components, [present])
+	Composite.add(engine.world, [ground, components]);
 
 	// Executed after elements loaded
 	onMount(async () => {

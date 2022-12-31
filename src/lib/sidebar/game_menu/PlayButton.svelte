@@ -15,15 +15,15 @@
 		Body,
 	} = Matter;
 
-    export let engine
+    export let components; 
 	
 	let started = false;
 
     function startGame() {
 		started = true;
 
-		for (let i = 0; i < Composite.allBodies(engine.world).length; i++) {
-			Body.setStatic(Composite.allBodies(engine.world)[i], false);
+		for (let i = 0; i < Composite.allBodies(components).length; i++) {
+			Body.setStatic(Composite.allBodies(components)[i], false);
 		}
     }
 </script>

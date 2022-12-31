@@ -15,12 +15,12 @@
 		Events,
 	} = Matter;
 
-	export let engine;
+	export let components;
 
 	function place() {
 		const ground = Bodies.rectangle(395, 205, 791, 10, { isStatic: true });
 
-		Composite.add(engine.world, ground);
+		Composite.add(components, ground);
 	}
 </script>
 

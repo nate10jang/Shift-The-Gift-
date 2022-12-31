@@ -2,13 +2,13 @@
     import ComponentBar from "./componentbar/ComponentBar.svelte";
     import GameMenu from "./game_menu/GameMenu.svelte";
 
-    export let engine;
+    export let components;
 </script>
 
 <div class="flex overflow-auto w-[280px] max-h-full flex-col">
     <div class="flex w-full h-[40px] justify-center items-center">
         <p class="text-[20px]">Game</p>
     </div>
-    <GameMenu {engine} />
-    <ComponentBar {engine} />
+    <GameMenu {components} />
+    <ComponentBar {components} />
 </div>
