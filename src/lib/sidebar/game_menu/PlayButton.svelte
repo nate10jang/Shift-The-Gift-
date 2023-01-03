@@ -15,20 +15,18 @@
 		Body,
 	} = Matter;
 
-    export let components; 
+    export let engine; 
 	
 	let started = false;
 
-    function startGame() {
+    function start() {
 		started = true;
 
-		for (let i = 0; i < Composite.allBodies(components).length; i++) {
-			Body.setStatic(Composite.allBodies(components)[i], false);
-		}
+		engine.gravity.y = 1;
     }
 </script>
 
-<button on:click={startGame} class="bg-green-400 w-1/2">
+<button on:click={start} class="bg-green-400 w-1/2">
     <p class="text-[20px]">
 		{#if !started}Play{:else}Replay{/if}
 	</p>

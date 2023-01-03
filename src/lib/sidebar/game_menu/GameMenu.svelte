@@ -3,10 +3,10 @@
 	import EditButton from "./EditButton.svelte";
 	import { GameState } from "../../GameState";
 
-	export let components;
+	export let engine;
 </script>
 
 <div class="h-[50px] flex-row">
-	<StartButton {components} />
-	<EditButton {components} />
+	<StartButton engine={engine} />
+	<EditButton engine={engine} />
 </div>
