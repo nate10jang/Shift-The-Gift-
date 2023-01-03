@@ -15,9 +15,10 @@
 		Vector,
 		Bounds,
 		Events,
+		Body,
 	} = Matter;
 
-	const engine = Engine.create();
+	export const engine = Engine.create();
 	let canvasContainer: HTMLDivElement;
 	let canvas: HTMLCanvasElement;
 	let render;
@@ -39,9 +40,10 @@
 				yScale: 0.13,
 			},
 		},
-		isStatic: true,
 		label: "present",
 	});
+
+	engine.gravity.y = 0;
 
 	Composite.add(components, [present])
 	Composite.add(engine.world, [ground, components]);
@@ -102,7 +104,7 @@
 		Events.on(mouseConstraint, "mouseup", function () {
 			held = false;
 		});
-
+		
 		Events.on(render, "beforeRender", function () {
 			let scaleFactor = mouse.wheelDelta * -0.1;
 			if (scaleFactor !== 0) {
