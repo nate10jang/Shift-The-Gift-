@@ -70,7 +70,7 @@
 		mouseConstraint = MouseConstraint.create(engine, {
 			mouse: mouse,
 			constraint: {
-				stiffness: 0.2,
+				stiffness: 1,
 				render: {
 					visible: false,
 				},
@@ -94,16 +94,20 @@
 
 		let viewPos = Vector.create(0, 0);
 
-		Events.on(mouseConstraint, "mousedown", function () {
+		document.addEventListener("mousedown", function () {
 			held = true;
 			draggedPoint = Object.assign(
 				{},
 				Vector.add(viewPos, mouse.absolute)
 			);
 		});
-		Events.on(mouseConstraint, "mouseup", function () {
+		document.addEventListener("mouseup", function () {
 			held = false;
 		});
+		Events.on(mouseConstraint, "enddrag", function (event) {
+			Body.setVelocity(event.body, Vector.create(0, 0))
+			Body.setAngularVelocity(event.body, 0)
+		})
 		
 		Events.on(render, "beforeRender", function () {
 			let scaleFactor = mouse.wheelDelta * -0.1;
