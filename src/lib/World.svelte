@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Matter from "matter-js";
-    import presentImage from "../assets/present.png";
-    import ComponentBar from "./sidebar/componentbar/ComponentBar.svelte";
+	import presentImage from "../assets/present.png";
+	import ComponentBar from "./sidebar/componentbar/ComponentBar.svelte";
 
 	const {
 		Engine,
@@ -45,7 +45,7 @@
 
 	engine.gravity.y = 0;
 
-	Composite.add(components, [present])
+	Composite.add(components, [present]);
 	Composite.add(engine.world, [ground, components]);
 
 	// Executed after elements loaded
@@ -105,10 +105,9 @@
 			held = false;
 		});
 		Events.on(mouseConstraint, "enddrag", function (event) {
-			Body.setVelocity(event.body, Vector.create(0, 0))
-			Body.setAngularVelocity(event.body, 0)
-		})
-		
+			Body.setVelocity(event.body, Vector.create(0, 0));
+		});
+
 		Events.on(render, "beforeRender", function () {
 			let scaleFactor = mouse.wheelDelta * -0.1;
 			if (scaleFactor !== 0) {
@@ -159,6 +158,10 @@
 				Bounds.shift(render.bounds, viewPos);
 
 				Mouse.setOffset(mouse, render.bounds.min);
+			}
+
+			if (mouseConstraint.body) {
+				Body.setAngularVelocity(mouseConstraint.body, mouseConstraint.body.angularVelocity * 0.8);
 			}
 		});
 	});
