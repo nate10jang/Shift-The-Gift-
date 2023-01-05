@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Matter from "matter-js";
-    import presentImage from "../assets/present.png";
-    import ComponentBar from "./sidebar/componentbar/ComponentBar.svelte";
+	import presentImage from "../assets/present.png";
+	import ComponentBar from "./sidebar/componentbar/ComponentBar.svelte";
 
 	const {
 		Engine,
@@ -30,6 +30,10 @@
 	const runner = Runner.create();
 	Runner.run(runner, engine);
 
+	// gravity is set to zero to start as edit mode
+	// likely to be replaced by a function in GameState.ts
+	engine.gravity.y = 0;
+
 	const ground = Bodies.rectangle(400, 655, 1400, 10, { isStatic: true });
 	export const components = Composite.create();
 	const present = Bodies.rectangle(100, 50, 80, 80, {
@@ -43,13 +47,16 @@
 		label: "present",
 	});
 
-	engine.gravity.y = 0;
-
-	Composite.add(components, [present])
+	Composite.add(components, [present]);
 	Composite.add(engine.world, [ground, components]);
 
-	// Executed after elements loaded
+	// Scope executed after canvas loaded
+	// because Using canvas properties outside of the scope
+	// will result in null
 	onMount(async () => {
+		// cannot use css to size canvas
+		// so used a container and made canvas fit it
+		// using typescript/javascript
 		canvas.width = canvasContainer.clientWidth;
 		canvas.height = canvasContainer.clientHeight;
 
@@ -67,44 +74,69 @@
 		Render.run(render);
 
 		mouse = Mouse.create(render.canvas);
+		render.mouse = mouse;
 		mouseConstraint = MouseConstraint.create(engine, {
 			mouse: mouse,
 			constraint: {
-				stiffness: 0.2,
+				stiffness: 1,
 				render: {
 					visible: false,
 				},
 			},
 		});
-
+		
 		Composite.add(engine.world, mouseConstraint);
 
+		// World size
 		let extents = {
 			min: { x: -600, y: -300 },
 			max: { x: 1400, y: 900 },
 		};
-
 		let boundsScaleTarget = 1,
 			boundsScale = {
 				x: 1,
 				y: 1,
 			};
 
-		render.mouse = mouse;
-
 		let viewPos = Vector.create(0, 0);
 
-		Events.on(mouseConstraint, "mousedown", function () {
+		// document.addEventListener used because
+		// Events.on(mouseConstraint) has an issue where
+		// when the player holds their mouse while moving it off the canvas,
+		// it still thinks that the mouse is held when the mouse is back on the canvas.
+		// document.addEventListener captures the mouse clciks on the whole page
+		// but when dragging on anything other than the world, it will stay
+		// the same because the mouse positions are restricted to the bounds.
+		// this may not be the best solution and will probably soon be changed.
+		document.addEventListener("mousedown", function () {
 			held = true;
+			
+			// Object.assign is used because using
+			// "= Vector.add(viewPos, mouse.absolute)" will
+			// reference it instead of assigning it hence Object.assign
 			draggedPoint = Object.assign(
 				{},
 				Vector.add(viewPos, mouse.absolute)
 			);
 		});
-		Events.on(mouseConstraint, "mouseup", function () {
+		document.addEventListener("mouseup", function () {
 			held = false;
 		});
-		
+
+		// After moving the object in edit mode,
+		// the object may be flung so after the object is dragged
+		// the velocity on the object gets reset.
+		Events.on(mouseConstraint, "enddrag", function (event) {
+			Body.setVelocity(event.body, Vector.create(0, 0));
+		});
+
+		Events.on(engine, "afterUpdate", function () {
+			// Object violently spins when collided (some cases)
+			// This slows the velocity down by 80% after every update/frame
+			if (mouseConstraint.body) {
+				Body.setAngularVelocity(mouseConstraint.body, mouseConstraint.body.angularVelocity * 0.8);
+			}
+		})
 		Events.on(render, "beforeRender", function () {
 			let scaleFactor = mouse.wheelDelta * -0.1;
 			if (scaleFactor !== 0) {
@@ -137,6 +169,8 @@
 				Mouse.setOffset(mouse, render.bounds.min);
 			}
 
+			// !mouseConstraint.body so that camera doesn't move
+			// when dragging an object.
 			if (held && !mouseConstraint.body) {
 				viewPos = Vector.sub(draggedPoint, mouse.absolute);
 

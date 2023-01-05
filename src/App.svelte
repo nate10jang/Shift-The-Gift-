@@ -1,5 +1,4 @@
 <script>
-    import { end_hydrating } from "svelte/internal";
 	import Sidebar from "./lib/sidebar/Sidebar.svelte";
 	import World from "./lib/World.svelte";
 	
