@@ -18,7 +18,7 @@
 	export let components;
 
 	function place() {
-		const ground = Bodies.rectangle(395, 205, 791, 10, { isStatic: true });
+		const ground = Bodies.rectangle(395, 205, 791, 10);
 
 		Composite.add(components, ground);
 	}

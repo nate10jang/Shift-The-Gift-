@@ -22,6 +22,8 @@
     function start() {
 		started = true;
 
+		// Turns on gravity for play mode
+		// likely to be replaced by a function in GameState.ts
 		engine.gravity.y = 1;
     }
 </script>
